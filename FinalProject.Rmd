@@ -41,8 +41,11 @@ After doing a cursory view of the data we can see that there are a total of 1962
 
 ## Process the data
 
-Before we start analyzing the data we need to remove columns with NA values. 
+The first thing we will do will be to remove irrelevant variables (columns) from our dataset. The variables that we will remove will be as follows:
+
+* **x**, simply an index
+* **user_name**, username 
 
 ```{r}
-
+data_training
 ```
