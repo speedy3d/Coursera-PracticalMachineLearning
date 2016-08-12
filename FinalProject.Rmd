@@ -21,10 +21,19 @@ This is the final assignment for the Coursera course titled "Practical Machine L
 
 First we will load the data from the corresponding CSV files.
 
-```{r cars}
+```{r}
 data_training <- read.csv("pml-training.csv")
 data_testing <- read.csv("pml-training.csv")
 ```
+
+####Describe the data
+
+```{r echo=TRUE}
+dim(data_training)
+names(data_training)[160]
+```
+
+After doing a cursory view of the data we can see that there are a total of 19622 observations with 160 variables, our target variable name is *classe*.
 
 ## Including Plots
 
