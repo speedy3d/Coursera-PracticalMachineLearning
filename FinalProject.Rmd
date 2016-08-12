@@ -22,6 +22,10 @@ This is the final assignment for the Coursera course titled "Practical Machine L
 First we will load the data from the corresponding CSV files. We will also load the appropriate packages.
 
 ```{r}
+#load packages
+library(caret)
+
+#load data
 data_training <- read.csv("pml-training.csv")
 data_testing <- read.csv("pml-training.csv")
 ```
@@ -37,7 +41,7 @@ After doing a cursory view of the data we can see that there are a total of 1962
 
 ## Process the data
 
-Before we start analyzing the data we need to remove NA (empty) values. 
+Before we start analyzing the data we need to remove columns with NA values. 
 
 ```{r}
 
