@@ -17,10 +17,13 @@ Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible t
 
 This is the final assignment for the Coursera course titled "Practical Machine Learning." The goal of this project is to predict the manner in wich a participant did the exercise. We will accomplish this by using a random forest classifier. The Caret package will be utilized.
 
-###Load the Data
+##Load the Data
+
+First we will load the data from the corresponding CSV files.
 
 ```{r cars}
-summary(cars)
+data_training <- read.csv("pml-training.csv")
+data_testing <- read.csv("pml-training.csv")
 ```
 
 ## Including Plots
