@@ -26,7 +26,7 @@ First we will load the data from the corresponding CSV files. We will also load 
 library(caret)
 library(randomForest)
 
-#load data
+#load both the training set and the test sets
 data_training <- read.csv("pml-training.csv", na.strings=c("NA",""))
 data_testing <- read.csv("pml-testing.csv", na.strings=c("NA",""))
 ```
@@ -45,6 +45,7 @@ After doing a cursory view of the data we can see that there are a total of 1962
 Since there are also a lot of missing data in some of the variables we can remove them. We will do this for both the training set and test sets. 
 
 ```{r}
+#remove blanks from the training data set
 blanks <- apply(data_training, 2, function(counts) {sum(is.na(counts))})
 data_training <- data_training[,which(blanks==0)]
 
@@ -61,6 +62,7 @@ The next thing we will do will be to remove irrelevant variables (columns) from 
 * *cvtd_timestamp*, when the record was taken in readable form
 
 ```{r}
+#remove irrelevant variables from the training data set
 data_training <- data_training[,-grep("^X|^user_name|^raw_timestamp_part_1|^raw_timestamp_part_2|^cvtd_timestamp|^new_window", names(data_training))]
 
 #do the same for the original test set
@@ -104,12 +106,6 @@ confusionMatrix(testing$classe, predict_fit)
 
 Our model achieves 99.71% accuracy on the test set. 
 
-###Visualizatoin
-
-```{r}
-plot(predict_fit)
-```
-
 ##Apply the model to the original test set
 
 Now we will apply the model to the original test set. This will use the model to predict the exercise category for the 20 test cases. 
@@ -118,3 +114,19 @@ Now we will apply the model to the original test set. This will use the model to
 data_testing_model <- predict(model_fit, data_testing)
 data_testing_model
 ```
+
+###Visualization of predicated exercises 
+
+This visualization shows the counts of each excerise category using the prediction model on the final test data set. 
+
+```{r}
+plot(data_testing_model, main="Predicted Exercise Counts by Predicted Class")
+```
+
+Description of the five different classes was found on the original study's website: 
+
+*Six young health participants were asked to perform one set of 10 repetitions of the Unilateral Dumbbell Biceps Curl in five different fashions: exactly according to the specification (Class A), throwing the elbows to the front (Class B), lifting the dumbbell only halfway (Class C), lowering the dumbbell only halfway (Class D) and throwing the hips to the front (Class E).*
+
+###Reference
+
+Velloso, E.; Bulling, A.; Gellersen, H.; Ugulino, W.; Fuks, H. Qualitative Activity Recognition of Weight Lifting Exercises. Proceedings of 4th International Conference in Cooperation with SIGCHI (Augmented Human '13) . Stuttgart, Germany: ACM SIGCHI, 2013. http://groupware.les.inf.puc-rio.br/har
