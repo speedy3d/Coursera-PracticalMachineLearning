@@ -27,8 +27,8 @@ library(caret)
 library(randomForest)
 
 #load data
-data_training <- read.csv("pml-training.csv", na.strings=c("", "NA", "NULL"))
-data_testing <- read.csv("pml-testing.csv", na.strings=c("", "NA", "NULL"))
+data_training <- read.csv("pml-training.csv", na.strings=c("NA",""))
+data_testing <- read.csv("pml-testing.csv", na.strings=c("NA",""))
 ```
 
 #### Describe the data
@@ -61,20 +61,20 @@ The next thing we will do will be to remove irrelevant variables (columns) from 
 * *cvtd_timestamp*, when the record was taken in readable form
 
 ```{r}
-data_training <- data_training[,-grep("^X|^user_name|^raw_timestamp_part_1
-                                            |^raw_timestamp_part_2|^cvtd_timestamp", names(data_training))]
+data_training <- data_training[,-grep("^X|^user_name|^raw_timestamp_part_1|^raw_timestamp_part_2|^cvtd_timestamp|^new_window", names(data_training))]
 
 #do the same for the original test set
-data_testing <- data_testing[,-grep("^X|^user_name|^raw_timestamp_part_1
-                                            |^raw_timestamp_part_2|^cvtd_timestamp", names(data_testing))]
+data_testing <- data_testing[,-grep("^X|^user_name|^raw_timestamp_part_1|^raw_timestamp_part_2|^cvtd_timestamp|^new_window", names(data_testing))]
 ```
 
-Now we will split the training data set into a 70/30 training and test set split (70% training, 30% test). 
+Now we will split the training data set into a 75/25 training and test set split (75% training, 25% test). 
 
 ```{r echo=TRUE}
-inTrain <- createDataPartition(y=data_training$classe, p=0.7, list=FALSE)
+inTrain <- createDataPartition(y=data_training$classe, p=0.75, list=FALSE)
 training <- data_training[inTrain,]
 testing <- data_training[-inTrain,]
+
+#check the data
 dim(training)
 dim(testing)
 ```
@@ -102,11 +102,17 @@ predict_fit <- predict(model_fit, testing)
 confusionMatrix(testing$classe, predict_fit)
 ```
 
-Our model achieves 99.93% accuracy on the test set. 
+Our model achieves 99.71% accuracy on the test set. 
 
-###Apply the model to the original test set
+###Visualizatoin
 
-Now we will apply the model to the original test set 
+```{r}
+plot(predict_fit)
+```
+
+##Apply the model to the original test set
+
+Now we will apply the model to the original test set. This will use the model to predict the exercise category for the 20 test cases. 
 
 ```{r}
 data_testing_model <- predict(model_fit, data_testing)
