@@ -50,7 +50,8 @@ The first thing we will do will be to remove irrelevant variables (columns) from
 * *cvtd_timestamp*, when the record was taken in readable form
 
 ```{r}
-clean_training_data <- data_training[,-grep("^X|^user_name|^raw_timestamp_part_1|^raw_timestamp_part_2|^cvtd_timestamp", names(data_training))]
+clean_training_data <- data_training[,-grep("^X|^user_name|^raw_timestamp_part_1
+                                            |^raw_timestamp_part_2|^cvtd_timestamp", names(data_training))]
 ```
 
 Since there are also a lot of missing data in some of the variables we can remove them.
