@@ -76,6 +76,10 @@ Now that we processed the data we can build a prediction model.
 
 ## Build the model
 
+The prediction model will use the random forest method to predict the class of activity (exercise) performed. 
 
+```{r}
+model_fit <- randomForest(classe ~ ., data = training)
+```
 
 
