@@ -28,7 +28,7 @@ library(randomForest)
 
 #load data
 data_training <- read.csv("pml-training.csv")
-data_testing <- read.csv("pml-training.csv")
+data_testing <- read.csv("pml-testing.csv")
 ```
 
 #### Describe the data
@@ -96,3 +96,12 @@ confusionMatrix(testing$classe, predict_fit)
 ```
 
 Our model achieves 99.8% accuracy on the test set. 
+
+###Apply the model to the original test set
+
+Now we will apply the model to the original test set 
+
+```{r}
+data_testing_model <- predict(model_fit, data_testing)
+data_testing_model
+```
