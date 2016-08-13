@@ -52,3 +52,15 @@ The first thing we will do will be to remove irrelevant variables (columns) from
 ```{r}
 clean_training_data <- data_training[,-grep("^X|^user_name|^raw_timestamp_part_1|^raw_timestamp_part_2|^cvtd_timestamp", names(data_training))]
 ```
+
+Since there are also a lot of missing data in some of the variables we can remove them.
+
+```{r}
+blanks <- apply(clean_training_data, 2, function(counts) {sum(is.na(counts))})
+clean_training_data <- clean_training_data[,which(blanks==0)]
+```
+
+Now we will split the training data set into a 70/30 training and test set split (70% training, 30% test). 
+
+```{r}
+inTrain <- createDataPartition(clean_training_data$classe, p=0.6)
