@@ -72,6 +72,8 @@ dim(training)
 dim(testing)
 ```
 
+Now that we processed the data we can build a prediction model.
+
 ## Build the model
 
 
