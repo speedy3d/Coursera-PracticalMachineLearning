@@ -88,8 +88,11 @@ model_fit <- randomForest(classe ~ ., data = training)
 
 ###Cross-Validation
 
-We will perform cross-validation on the test set. We shoudl have a fairly small out of sample error as the random forest method should be very accurate. We will then output a confusion matrix of the relevant statistics.
+We will perform cross-validation on the test set. We should have a fairly small out of sample error as the random forest method should be very accurate. We will then output a confusion matrix of the relevant statistics.
 
 ```{r echo=TRUE}
-predict_fit <- predict(model_fit, cross)
+predict_fit <- predict(model_fit, testing)
+confusionMatrix(testing$classe, predict_fit)
 ```
+
+Our model achieves 99.8% accuracy on the test set. 
