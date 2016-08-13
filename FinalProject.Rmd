@@ -27,8 +27,8 @@ library(caret)
 library(randomForest)
 
 #load data
-data_training <- read.csv("pml-training.csv")
-data_testing <- read.csv("pml-testing.csv")
+data_training <- read.csv("pml-training.csv", na.strings=c("", "NA", "NULL"))
+data_testing <- read.csv("pml-testing.csv", na.strings=c("", "NA", "NULL"))
 ```
 
 #### Describe the data
@@ -45,8 +45,8 @@ After doing a cursory view of the data we can see that there are a total of 1962
 Since there are also a lot of missing data in some of the variables we can remove them. We will do this for both the training set and test sets. 
 
 ```{r}
-blanks <- apply(clean_training_data, 2, function(counts) {sum(is.na(counts))})
-clean_training_data <- clean_training_data[,which(blanks==0)]
+blanks <- apply(data_training, 2, function(counts) {sum(is.na(counts))})
+data_training <- data_training[,which(blanks==0)]
 
 #do the same for the original test set
 data_testing <- data_testing[,which(blanks==0)]
@@ -61,7 +61,7 @@ The next thing we will do will be to remove irrelevant variables (columns) from 
 * *cvtd_timestamp*, when the record was taken in readable form
 
 ```{r}
-clean_training_data <- data_training[,-grep("^X|^user_name|^raw_timestamp_part_1
+data_training <- data_training[,-grep("^X|^user_name|^raw_timestamp_part_1
                                             |^raw_timestamp_part_2|^cvtd_timestamp", names(data_training))]
 
 #do the same for the original test set
@@ -72,9 +72,9 @@ data_testing <- data_testing[,-grep("^X|^user_name|^raw_timestamp_part_1
 Now we will split the training data set into a 70/30 training and test set split (70% training, 30% test). 
 
 ```{r echo=TRUE}
-inTrain <- createDataPartition(y=clean_training_data$classe, p=0.7, list=FALSE)
-training <- clean_training_data[inTrain,]
-testing <- clean_training_data[-inTrain,]
+inTrain <- createDataPartition(y=data_training$classe, p=0.7, list=FALSE)
+training <- data_training[inTrain,]
+testing <- data_training[-inTrain,]
 dim(training)
 dim(testing)
 ```
@@ -102,7 +102,7 @@ predict_fit <- predict(model_fit, testing)
 confusionMatrix(testing$classe, predict_fit)
 ```
 
-Our model achieves 99.8% accuracy on the test set. 
+Our model achieves 99.93% accuracy on the test set. 
 
 ###Apply the model to the original test set
 
