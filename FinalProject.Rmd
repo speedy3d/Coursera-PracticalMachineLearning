@@ -1,5 +1,5 @@
 ---
-title: "FInalProject"
+title: "Practical Machine Learning - FinalProject"
 author: "Ryan Wissman"
 date: "August 12, 2016"
 output: html_document
@@ -60,6 +60,7 @@ The next thing we will do will be to remove irrelevant variables (columns) from 
 * *raw_timestamp_part_1* machine timestamp of record
 * *raw_timestamp_part_2* machine timestamp of record
 * *cvtd_timestamp*, when the record was taken in readable form
+* *new_window*, string variable
 
 ```{r}
 #remove irrelevant variables from the training data set
@@ -104,7 +105,7 @@ predict_fit <- predict(model_fit, testing)
 confusionMatrix(testing$classe, predict_fit)
 ```
 
-Our model achieves 99.71% accuracy on the test set. 
+Our model achieves 99.84% accuracy on the test set. 
 
 ##Apply the model to the original test set
 
@@ -120,12 +121,12 @@ data_testing_model
 This visualization shows the counts of each excerise category using the prediction model on the final test data set. 
 
 ```{r}
-plot(data_testing_model, main="Predicted Exercise Counts by Predicted Class")
+plot(data_testing_model, main="Predicted Exercise Counts by Class")
 ```
 
 Description of the five different classes was found on the original study's website: 
 
-*Six young health participants were asked to perform one set of 10 repetitions of the Unilateral Dumbbell Biceps Curl in five different fashions: exactly according to the specification (Class A), throwing the elbows to the front (Class B), lifting the dumbbell only halfway (Class C), lowering the dumbbell only halfway (Class D) and throwing the hips to the front (Class E).*
+"*Six young health participants were asked to perform one set of 10 repetitions of the Unilateral Dumbbell Biceps Curl in five different fashions: exactly according to the specification (Class A), throwing the elbows to the front (Class B), lifting the dumbbell only halfway (Class C), lowering the dumbbell only halfway (Class D) and throwing the hips to the front (Class E).*" from http://groupware.les.inf.puc-rio.br/har
 
 ###Reference
 
