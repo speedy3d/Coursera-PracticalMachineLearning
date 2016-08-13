@@ -43,9 +43,12 @@ After doing a cursory view of the data we can see that there are a total of 1962
 
 The first thing we will do will be to remove irrelevant variables (columns) from our dataset. The variables that we will remove will be as follows:
 
-* **x**, simply an index
-* **user_name**, username 
+* *x*, simply an index
+* *user_name*, username
+* *raw_timestamp_part_1* machine timestamp of record
+* *raw_timestamp_part_2* machine timestamp of record
+* *cvtd_timestamp*, when the record was taken in readable form
 
 ```{r}
-data_training
+clean_training_data <- data_training[,-grep("^X|^user_name|^raw_timestamp_part_1|^raw_timestamp_part_2|^cvtd_timestamp", names(data_training))]
 ```
