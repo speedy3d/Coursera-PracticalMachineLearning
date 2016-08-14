@@ -50,3 +50,8 @@ Temporary Items
 .Rhistory
 .RData
 .Rproj.user
+.Rproj
+
+#github files
+.gitignore
+.gitattributes
