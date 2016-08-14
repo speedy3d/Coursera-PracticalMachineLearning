@@ -105,7 +105,7 @@ predict_fit <- predict(model_fit, testing)
 confusionMatrix(testing$classe, predict_fit)
 ```
 
-Our model achieves 99.84% accuracy on the test set. 
+Our model achieves roughly 99% accuracy on the test set. 
 
 ##Apply the model to the original test set
 
